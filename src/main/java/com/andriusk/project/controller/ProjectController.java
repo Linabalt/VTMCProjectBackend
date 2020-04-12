@@ -48,4 +48,11 @@ public class ProjectController {
         return projectService.getProjectByID(projectId);
     }
 
+    @GetMapping("/search/{searchTerm}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Search for projects", notes = "Return a list of projects whose names match the search.")
+    public List<Project> searchForProjects(@PathVariable String searchTerm) {
+        return projectService.findByProjectName(searchTerm);
+    }
+
 }
