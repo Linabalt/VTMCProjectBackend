@@ -11,55 +11,53 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
-@Api(value = "/projects/{projectId}")
+@Api(value = "/projects/{projectId}/tasks")
 @RestController
-@RequestMapping(value = "/projects/{projectId}")
+@RequestMapping(value = "/projects/{projectId}/tasks")
 public class TaskController {
 
-	@Autowired
-	TaskService taskService;
+    @Autowired
+    TaskService taskService;
 
-	@GetMapping(value = "/tasks")
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get all tasks from a project", notes = "Returns a set of all tasks belonging to a project.")
+    public List<Task> getTasks(@PathVariable Long projectId) {
+        return taskService.getAllTasks(projectId);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiOperation(value = "Create a task", notes = "Creates a new task for the specified project.")
+    public void createTask(@PathVariable Long projectId, @RequestBody Task task) {
+        taskService.createTask(task, projectId);
+    }
+
+    @GetMapping(value = "/{taskId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get individual task", notes = "Returns the specified task.")
+    public Task getTask(@PathVariable Long taskId) {
+        return taskService.getTask(taskId);
+    }
+
+    @DeleteMapping("/{taskId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Delete a task", notes = "Deletes a specific task.")
+    public void deleteProject(@PathVariable Long taskId) {
+        taskService.deleteTaskById(taskId);
+    }
+
+    @PostMapping(value = "/{taskId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiOperation(value = "Edit a specific task", notes = "Edits a task's information.")
+    public void editTask(@PathVariable Long taskId, @RequestBody Task task) {
+        taskService.editTask(taskId, task);
+    }
+
+    @GetMapping(value = "/search/{searchTerm}")
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Get all tasks from a project", notes = "Returns a set of all tasks belonging to a project.")
-	public List<Task> getTasks(@PathVariable Long projectId) {
-		return taskService.getAllTasks(projectId);
+	@ApiOperation(value = "Search for a task", notes = "Search for a task by it's name.")
+	public List<Task> findTask(@PathVariable String searchTerm) {
+    	return taskService.findByTaskName(searchTerm);
 	}
-
-	@PostMapping(value = "/tasks")
-	@ResponseStatus(HttpStatus.ACCEPTED)
-	@ApiOperation(value = "Create a task", notes = "Creates a new task for the specified project.")
-	public void createTask(@PathVariable Long projectId, @RequestBody Task task) {
-		taskService.createTask(task, projectId);
-	}
-
-	@GetMapping(value = "/{oneTask}")
-	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Get individual task from a project", notes = "Returns a task from all projects.")
-	public Task retrieveIndividualTask(@PathVariable Long projectId, Long taskId) {
-		return taskService.retrieveIndividualTask(projectId, taskId);
-	}
-
-	@DeleteMapping("/{taskID}")
-	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Delete a task", notes = "Deletes the specific task.")
-	public void deleteProject(@PathVariable Long projectId, Long taskId) {
-		taskService.deleteTaskByID(projectId, taskId);
-	}
-
-	@PostMapping(value = "/{taskID}/{taskName}/{taskDescription}")
-	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Edit specific task", notes = "Edits Task name and its description")
-	public void editTask(@PathVariable Long projectId, Long taskId, String taskName, String taskDesc) {
-		taskService.editTask(projectId, taskId, taskName, taskDesc);
-
-	}
-
-    //TODO
-   /*
-   Method for retrieving individual tasks.
-   Method for deleting a specific task.
-   Method for updating a specific task. Check if updateOn field updates properly when a task is edited.
-   Method for searching for a task by it's name.
-   */
 }

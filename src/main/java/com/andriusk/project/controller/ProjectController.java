@@ -38,14 +38,14 @@ public class ProjectController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(value = "Delete a project", notes = "Deletes the specified project.")
     public void deleteProject(@PathVariable Long projectId) {
-        projectService.deleteProjectByID(projectId);
+        projectService.deleteProjectById(projectId);
     }
 
     @GetMapping("/{projectId}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get project by ID", notes = "Returns a project by the specified ID.")
     public Project getProjectByID(@PathVariable Long projectId) {
-        return projectService.getProjectByID(projectId);
+        return projectService.getProjectById(projectId);
     }
 
     @GetMapping("/search/{searchTerm}")
@@ -54,5 +54,8 @@ public class ProjectController {
     public List<Project> searchForProjects(@PathVariable String searchTerm) {
         return projectService.findByProjectName(searchTerm);
     }
+
+    //TODO
+    // Method for updating a project? Perhaps it's not necessary, will need to decide later.
 
 }

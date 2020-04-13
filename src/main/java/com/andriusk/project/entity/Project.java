@@ -52,10 +52,6 @@ public class Project {
         this.projectStatus = projectStatus;
     }
 
-    public String getProjectName() {
-        return projectName;
-    }
-
     public List<Task> getTasks() {
         return tasks;
     }

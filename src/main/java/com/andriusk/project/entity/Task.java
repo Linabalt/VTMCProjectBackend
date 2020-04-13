@@ -28,7 +28,7 @@ public class Task {
 
     private String taskDescription;
 
-    @ManyToOne (cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY)  // (cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "projectId")
     @JsonIgnore
     private Project project;
@@ -47,12 +47,17 @@ public class Task {
 
     private LocalDateTime taskDeadline;
 
-    public Project getProject() {
-        return project;
+    // For testing only
+    public Task(String taskName, String taskDescription, TaskStatus taskStatus, Priority taskPriority) {
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.taskStatus = taskStatus;
+        this.taskPriority = taskPriority;
+        this.taskDeadline = taskDeadline;
     }
 
-    public String getTaskName() {
-        return taskName;
+    public Project getProject() {
+        return project;
     }
 
     public void setProject(Project project) {

@@ -31,12 +31,12 @@ public class ProjectServiceImp implements ProjectService {
     }
     
     @Override
-	public void deleteProjectByID(Long id) {
+	public void deleteProjectById(Long id) {
 		projectRepository.deleteById(id);
 		
 	}
 	@Override
-	public Project getProjectByID(Long id) {
+	public Project getProjectById(Long id) {
 		return projectRepository.findById(id).get();
 	}
 
