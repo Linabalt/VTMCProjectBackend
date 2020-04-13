@@ -51,6 +51,10 @@ public class Task {
         return project;
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
+
     public void setProject(Project project) {
         this.project = project;
     }

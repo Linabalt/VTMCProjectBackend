@@ -39,5 +39,6 @@ public class TaskController {
    Method for retrieving individual tasks.
    Method for deleting a specific task.
    Method for updating a specific task. Check if updateOn field updates properly when a task is edited.
+   Method for searching for a task by it's name.
    */
 }
