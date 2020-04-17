@@ -29,6 +29,9 @@ public class ProjectListApplication {
 		return (args) -> {
 			projectService.save(new Project("Test project 1", "A test project", ProjectStatus.DONE));
 			projectService.save(new Project("Test project 2", "Another test project", ProjectStatus.IN_PROGRESS));
+			projectService.save(new Project("A very important project", "The most important project, the importantest of them all", ProjectStatus.IN_PROGRESS));
+			projectService.save(new Project("A not so important project", "You can probably ignore this project", ProjectStatus.IN_PROGRESS));
+			projectService.save(new Project("A project with complete tasks", "Another test project", ProjectStatus.DONE));
 		};
 	}
 
@@ -38,7 +41,12 @@ public class ProjectListApplication {
 			try {
 				taskService.createTask(new Task("A dummy task", "This is a dummy task intended for testing", TaskStatus.IN_PROGRESS, Priority.MEDIUM), 1L);
 				taskService.createTask(new Task("Another dummy task", "This is a dummy task intended for testing", TaskStatus.COMPLETE, Priority.HIGH), 2L);
+				taskService.createTask(new Task("Another dummy task woooooo", "This is a dummy task intended for testing", TaskStatus.COMPLETE, Priority.HIGH), 2L);
 				taskService.createTask(new Task("Yet another dummy task", "This is a dummy task intended for testing as well", TaskStatus.CANCELED, Priority.HIGH), 2L);
+				taskService.createTask(new Task("Yet another dummy task", "This is a dummy task intended for testing as well", TaskStatus.IN_PROGRESS, Priority.HIGH), 3L);
+				taskService.createTask(new Task("A dummy task", "This is a dummy task intended for testing", TaskStatus.IN_PROGRESS, Priority.MEDIUM), 4L);
+				taskService.createTask(new Task("Yet another dummy task", "This is a dummy task intended for testing as well", TaskStatus.COMPLETE, Priority.HIGH), 5L);
+				taskService.createTask(new Task("Yet another dummy task", "This is a dummy task intended for testing as well", TaskStatus.COMPLETE, Priority.HIGH), 5L);
 			} catch (Exception e) {
 				System.out.println(e);
 			}

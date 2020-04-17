@@ -58,4 +58,11 @@ public class TaskServiceImp implements TaskService {
         Pattern pattern = Pattern.compile( "\\b(" + searchTerm + ".*)", Pattern.CASE_INSENSITIVE);
         return taskRepository.findAll().stream().filter(task -> pattern.matcher(task.getTaskName()).find()).collect(Collectors.toList());
     }
+
+//    @Override
+//    public TaskProgress retrieveProgress(Long projectId) {
+//        List<Task> allTasks = getAllTasks(projectId);
+//        Long unfinishedTasks = allTasks.stream().filter(task -> task.getTaskStatus() == TaskStatus.COMPLETE).count();
+//        return new TaskProgress(projectId, (long) allTasks.size(), unfinishedTasks);
+//    }
 }

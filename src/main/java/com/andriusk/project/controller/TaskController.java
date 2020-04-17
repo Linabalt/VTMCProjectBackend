@@ -25,6 +25,13 @@ public class TaskController {
     public List<Task> getTasks(@PathVariable Long projectId) {
         return taskService.getAllTasks(projectId);
     }
+//
+//    @GetMapping(value = "/status")
+//    @ResponseStatus(HttpStatus.OK)
+//    @ApiOperation(value = "Retrieve task completeness", notes = "Returns an object which contains information about the amount of tasks completed in a particular project.")
+//    public TaskProgress getProgress(@PathVariable Long projectId) {
+//        return taskService.retrieveProgress(projectId);
+//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)

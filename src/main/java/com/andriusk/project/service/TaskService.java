@@ -16,4 +16,6 @@ public interface TaskService {
     void editTask(Long projectID, Task task);
 
     List<Task> findByTaskName(String searchTerm);
+
+//    TaskProgress retrieveProgress(Long projectId);
 }

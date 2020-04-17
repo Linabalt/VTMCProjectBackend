@@ -1,6 +1,7 @@
 package com.andriusk.project.controller;
 
 import com.andriusk.project.entity.Project;
+import com.andriusk.project.response.FullProjectInfo;
 import com.andriusk.project.service.ProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,13 @@ public class ProjectController {
     @ApiOperation(value = "Get all projects", notes = "Returns a list of all projects.")
     public List<Project> getProjects() {
         return projectService.findAll();
+    }
+
+    @GetMapping(value = "/full")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Returns info on projects", notes = "Returns a list containing expanded information about each project.")
+    public List<FullProjectInfo> getFullInfo() {
+        return projectService.retrieveFullInfo();
     }
 
     @PostMapping
