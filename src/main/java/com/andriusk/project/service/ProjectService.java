@@ -10,6 +10,8 @@ public interface ProjectService {
 
     void save(Project project);
 
+    void createProject(String payload);
+
     Project findById(Long id);
 
     void deleteProjectById(Long id);

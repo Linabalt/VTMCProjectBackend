@@ -29,6 +29,8 @@ public class Project {
 
     private String projectDescription;
 
+    private String projectManager;
+
     @Enumerated(EnumType.STRING)
     private ProjectStatus projectStatus;
 
@@ -49,6 +51,14 @@ public class Project {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
+    }
+
+    public Project(String projectName, String projectDescription, String projectManager, ProjectStatus projectStatus, LocalDateTime projectDeadline) {
+        this.projectName = projectName;
+        this.projectDescription = projectDescription;
+        this.projectManager = projectManager;
+        this.projectStatus = projectStatus;
+        this.projectDeadline = projectDeadline;
     }
 
     public List<Task> getTasks() {

@@ -38,8 +38,8 @@ public class ProjectController {
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ApiOperation(value = "Create a project", notes = "Creates a new project.")
-    public void createProject(@RequestBody Project project) {
-        projectService.save(project);
+    public void createProject(@RequestBody String payload) {
+        projectService.createProject(payload);
     }
 
     @DeleteMapping("/{projectId}")

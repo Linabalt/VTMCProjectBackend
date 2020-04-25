@@ -12,6 +12,7 @@ public class FullProjectInfo {
     private Long projectId;
     private String projectName;
     private String projectDescription;
+    private String projectManager;
     private String projectStatus;
     private LocalDateTime projectCreatedOn;
     private LocalDateTime projectModifiedOn;
@@ -23,8 +24,11 @@ public class FullProjectInfo {
         this.projectId = project.getProjectId();
         this.projectName = project.getProjectName();
         this.projectDescription = project.getProjectDescription();
+        this.projectManager = project.getProjectManager();
         if (project.getProjectStatus() == ProjectStatus.IN_PROGRESS) {
             this.projectStatus = "In progress";
+        } else if (project.getProjectStatus() == ProjectStatus.NOT_STARTED){
+            this.projectStatus = "Not started";
         } else {
             this.projectStatus = "Complete";
         }
