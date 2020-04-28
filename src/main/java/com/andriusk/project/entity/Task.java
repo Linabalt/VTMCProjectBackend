@@ -47,13 +47,32 @@ public class Task {
 
     private LocalDateTime taskDeadline;
 
+    private String taskRole;
+
+    private String taskStory;
+
+    private String taskPurpose;
+
+    private String taskAcceptance;
+
     // For testing only
     public Task(String taskName, String taskDescription, TaskStatus taskStatus, Priority taskPriority) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
         this.taskPriority = taskPriority;
+    }
+
+    public Task(String taskName, String taskDescription, TaskStatus taskStatus, Priority taskPriority, LocalDateTime taskDeadline, String taskRole, String taskStory, String taskPurpose, String taskAcceptance) {
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.taskStatus = taskStatus;
+        this.taskPriority = taskPriority;
         this.taskDeadline = taskDeadline;
+        this.taskRole = taskRole;
+        this.taskStory = taskStory;
+        this.taskPurpose = taskPurpose;
+        this.taskAcceptance = taskAcceptance;
     }
 
     public Project getProject() {

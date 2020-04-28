@@ -1,7 +1,7 @@
 package com.andriusk.project.enums;
 
 public enum TaskStatus {
-    STARTED,
+    NOT_STARTED,
     IN_PROGRESS,
     COMPLETE,
     CANCELED

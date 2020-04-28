@@ -17,5 +17,7 @@ public interface TaskService {
 
     List<Task> findByTaskName(String searchTerm);
 
+    void createTask(String payload, long projectId);
+
 //    TaskProgress retrieveProgress(Long projectId);
 }
