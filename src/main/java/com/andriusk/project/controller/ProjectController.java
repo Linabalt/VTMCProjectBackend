@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping(value = "/projects")
 public class ProjectController {
 
-
     @Autowired
     private ProjectService projectService;
 
@@ -28,11 +27,26 @@ public class ProjectController {
         return projectService.findAll();
     }
 
+    // This is used for retrieving a newly created project, so disregard the deceptively named path.
+    @GetMapping(value = "/retrieve/{projectName}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get a project by name", notes = "Returns project by the specified name.")
+    public Project getProject(@PathVariable String projectName) {
+        return projectService.getByProjectName(projectName);
+    }
+
     @GetMapping(value = "/full")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Returns info on projects", notes = "Returns a list containing expanded information about each project.")
     public List<FullProjectInfo> getFullInfo() {
         return projectService.retrieveFullInfo();
+    }
+
+    @GetMapping(value = "/full/{projectId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Returns full project information", notes = "Returns expanded information about a specific project.")
+    public FullProjectInfo getFullInfoIndividual(@PathVariable Long projectId) {
+        return projectService.retrieveFullInfoIndividual(projectId);
     }
 
     @PostMapping

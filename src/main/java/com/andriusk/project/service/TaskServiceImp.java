@@ -64,8 +64,8 @@ public class TaskServiceImp implements TaskService {
                 status = TaskStatus.CANCELED;
             }
 
-            Task newTask = new Task(projectCreateObject.getTaskName(), projectCreateObject.getTaskDescription(), status, priority, deadline, projectCreateObject.getTaskRole(),
-                    projectCreateObject.getTaskStory(),projectCreateObject.getTaskPurpose(), projectCreateObject.getTaskAcceptance());
+            Task newTask = new Task(projectCreateObject.getTaskName(), projectCreateObject.getTaskDescription(), status, priority, deadline,
+                    projectCreateObject.getTaskStory());
 
             createTask(newTask, projectId);
 

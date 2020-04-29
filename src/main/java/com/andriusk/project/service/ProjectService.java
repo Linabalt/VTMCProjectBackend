@@ -8,6 +8,8 @@ import java.util.List;
 public interface ProjectService {
     List<Project> findAll();
 
+    Project getByProjectName(String projectName);
+
     void save(Project project);
 
     void createProject(String payload);
@@ -21,4 +23,6 @@ public interface ProjectService {
     List<Project> findByProjectName(String projectName);
 
     List<FullProjectInfo> retrieveFullInfo();
+
+    FullProjectInfo retrieveFullInfoIndividual(Long projectId);
 }

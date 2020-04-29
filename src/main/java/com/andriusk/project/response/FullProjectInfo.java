@@ -1,10 +1,12 @@
 package com.andriusk.project.response;
 
 import com.andriusk.project.entity.Project;
+import com.andriusk.project.entity.Task;
 import com.andriusk.project.enums.ProjectStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class FullProjectInfo {
@@ -19,6 +21,7 @@ public class FullProjectInfo {
     private LocalDateTime projectDeadline;
     private Long completeTasks;
     private Long totalTasks;
+    private List<Task> tasks;
 
     public FullProjectInfo(Project project, Long completeTasks, Long totalTasks) {
         this.projectId = project.getProjectId();
@@ -37,5 +40,6 @@ public class FullProjectInfo {
         this.projectDeadline = project.getProjectDeadline();
         this.completeTasks = completeTasks;
         this.totalTasks = totalTasks;
+        this.tasks = project.getTasks();
     }
 }

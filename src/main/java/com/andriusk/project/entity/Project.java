@@ -1,6 +1,7 @@
 package com.andriusk.project.entity;
 
 import com.andriusk.project.enums.ProjectStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,7 +43,7 @@ public class Project {
 
     private LocalDateTime projectDeadline;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
