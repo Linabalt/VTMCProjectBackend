@@ -2,6 +2,7 @@ package com.andriusk.project.service;
 
 import com.andriusk.project.entity.Project;
 import com.andriusk.project.response.FullProjectInfo;
+import com.andriusk.project.response.ProjectCreateObject;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface ProjectService {
     void save(Project project);
 
     void createProject(String payload);
+
+    void updateProject(ProjectCreateObject project, Long projectId);
 
     Project findById(Long id);
 

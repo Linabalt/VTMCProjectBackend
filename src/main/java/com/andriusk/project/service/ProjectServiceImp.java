@@ -50,6 +50,17 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
+    public void updateProject(ProjectCreateObject project, Long projectId) {
+        Project update = projectRepository.findById(projectId).get();
+        update.setProjectName(project.getProjectName());
+        update.setProjectDescription(project.getProjectDescription());
+        update.setProjectManager((project.getProjectManager()));
+        LocalDateTime deadline = LocalDateTime.of(LocalDate.parse(project.getProjectDeadline()), LocalTime.now());
+        update.setProjectDeadline(deadline);
+        projectRepository.save(update);
+    }
+
+    @Override
     public Project findById(Long id) {
         return projectRepository.findById(id).get();
     }

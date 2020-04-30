@@ -2,6 +2,7 @@ package com.andriusk.project.controller;
 
 import com.andriusk.project.entity.Project;
 import com.andriusk.project.response.FullProjectInfo;
+import com.andriusk.project.response.ProjectCreateObject;
 import com.andriusk.project.service.ProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -70,14 +71,17 @@ public class ProjectController {
         return projectService.getProjectById(projectId);
     }
 
+    @PatchMapping("/{projectId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Update project by ID", notes = "Updates a project based on received data..")
+    public void getProjectByID(@PathVariable Long projectId, @RequestBody ProjectCreateObject project) {
+        projectService.updateProject(project, projectId);
+    }
+
     @GetMapping("/search/{searchTerm}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Search for projects", notes = "Return a list of projects whose names match the search.")
     public List<Project> searchForProjects(@PathVariable String searchTerm) {
         return projectService.findByProjectName(searchTerm);
     }
-
-    //TODO
-    // Method for updating a project? Perhaps it's not necessary, will need to decide later.
-
 }
