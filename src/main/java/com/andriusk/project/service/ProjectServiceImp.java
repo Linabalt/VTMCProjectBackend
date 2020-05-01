@@ -87,12 +87,15 @@ public class ProjectServiceImp implements ProjectService {
         return projectRepository.findAll().stream().map(project -> {
             List<Task> allTasks = project.getTasks();
             Long completeTasks;
+            Long tasks;
             if (allTasks == null || allTasks.size() == 0) {
                 completeTasks = 0L;
+                tasks = 0L;
             } else {
               completeTasks = allTasks.stream().filter(task -> task.getTaskStatus() == TaskStatus.COMPLETE || task.getTaskStatus() == TaskStatus.CANCELED ).count();
+              tasks = (long) allTasks.size();
             }
-            return new FullProjectInfo(project, completeTasks, (long) allTasks.size());
+            return new FullProjectInfo(project, completeTasks, tasks);
         }).collect(Collectors.toList());
     }
 
