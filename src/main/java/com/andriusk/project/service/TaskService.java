@@ -1,6 +1,7 @@
 package com.andriusk.project.service;
 
 import com.andriusk.project.entity.Task;
+import com.andriusk.project.response.TaskCreateObject;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface TaskService {
 
     void deleteTaskById(Long taskId);
 
-    void editTask(Long projectID, Task task);
+    void editTask(Long projectID, TaskCreateObject task);
 
     List<Task> findByTaskName(String searchTerm);
 

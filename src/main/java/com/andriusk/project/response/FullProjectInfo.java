@@ -2,7 +2,6 @@ package com.andriusk.project.response;
 
 import com.andriusk.project.entity.Project;
 import com.andriusk.project.entity.Task;
-import com.andriusk.project.enums.ProjectStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -28,18 +27,18 @@ public class FullProjectInfo {
         this.projectName = project.getProjectName();
         this.projectDescription = project.getProjectDescription();
         this.projectManager = project.getProjectManager();
-        if (project.getProjectStatus() == ProjectStatus.IN_PROGRESS) {
-            this.projectStatus = "In progress";
-        } else if (project.getProjectStatus() == ProjectStatus.NOT_STARTED){
-            this.projectStatus = "Not started";
-        } else {
-            this.projectStatus = "Complete";
-        }
         this.projectCreatedOn = project.getProjectCreatedOn();
         this.projectModifiedOn = project.getProjectModifiedOn();
         this.projectDeadline = project.getProjectDeadline();
         this.completeTasks = completeTasks;
         this.totalTasks = totalTasks;
         this.tasks = project.getTasks();
+        if (this.completeTasks.equals(this.totalTasks) && this.totalTasks != 0) {
+            this.projectStatus = "Complete";
+        } else if (this.totalTasks > 0){
+            this.projectStatus = "In progress";
+        } else {
+            this.projectStatus = "Not started";
+        }
     }
 }

@@ -45,20 +45,20 @@ public class TaskServiceImp implements TaskService {
             LocalDateTime deadline = LocalDateTime.of(LocalDate.parse(projectCreateObject.getTaskDeadline()), LocalTime.now());
 
             Priority priority;
-            if (projectCreateObject.getTaskPriority().equals("High")) {
+            if (projectCreateObject.getTaskPriority().equals("HIGH")) {
                 priority = Priority.HIGH;
-            } else if (projectCreateObject.getTaskPriority().equals("Medium")) {
+            } else if (projectCreateObject.getTaskPriority().equals("MEDIUM")) {
                 priority = Priority.MEDIUM;
             } else {
                 priority = Priority.LOW;
             }
 
             TaskStatus status;
-            if (projectCreateObject.getTaskStatus().equals("Not started")) {
+            if (projectCreateObject.getTaskStatus().equals("NOT_STARTED")) {
                 status = TaskStatus.NOT_STARTED;
-            } else if (projectCreateObject.getTaskStatus().equals("In progress")) {
+            } else if (projectCreateObject.getTaskStatus().equals("IN_PROGRESS")) {
                 status = TaskStatus.IN_PROGRESS;
-            } else if (projectCreateObject.getTaskStatus().equals("Complete")) {
+            } else if (projectCreateObject.getTaskStatus().equals("COMPLETE")) {
                 status = TaskStatus.COMPLETE;
             } else {
                 status = TaskStatus.CANCELED;
@@ -92,19 +92,45 @@ public class TaskServiceImp implements TaskService {
     }
 
     @Override
-    public void editTask(Long taskId, Task task) {
+    public void editTask(Long taskId, TaskCreateObject task) {
         Task editedTask = getTask(taskId);
         editedTask.setTaskDescription(task.getTaskDescription());
         editedTask.setTaskName(task.getTaskName());
-        editedTask.setTaskDeadline(task.getTaskDeadline());
-        editedTask.setTaskStatus(task.getTaskStatus());
-        editedTask.setTaskPriority(task.getTaskPriority());
+        editedTask.setTaskDeadline(LocalDateTime.of(LocalDate.parse(task.getTaskDeadline()), LocalTime.now()));
+
+        switch (task.getTaskStatus()) {
+            case "NOT_STARTED":
+                editedTask.setTaskStatus(TaskStatus.NOT_STARTED);
+                break;
+            case "IN_PROGRESS":
+                editedTask.setTaskStatus(TaskStatus.IN_PROGRESS);
+                break;
+            case "COMPLETE":
+                editedTask.setTaskStatus(TaskStatus.COMPLETE);
+                break;
+            default:
+                editedTask.setTaskStatus(TaskStatus.CANCELED);
+                break;
+        }
+
+        switch (task.getTaskPriority()) {
+            case "LOW":
+                editedTask.setTaskPriority(Priority.LOW);
+                break;
+            case "MEDIUM":
+                editedTask.setTaskPriority(Priority.MEDIUM);
+                break;
+            default:
+                editedTask.setTaskPriority(Priority.HIGH);
+                break;
+        }
+
         taskRepository.save(editedTask);
     }
 
     @Override
     public List<Task> findByTaskName(String searchTerm) {
-        Pattern pattern = Pattern.compile( "\\b(" + searchTerm + ".*)", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("\\b(" + searchTerm + ".*)", Pattern.CASE_INSENSITIVE);
         return taskRepository.findAll().stream().filter(task -> pattern.matcher(task.getTaskName()).find()).collect(Collectors.toList());
     }
 }

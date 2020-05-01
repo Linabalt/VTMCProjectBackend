@@ -1,6 +1,7 @@
 package com.andriusk.project.controller;
 
 import com.andriusk.project.entity.Task;
+import com.andriusk.project.response.TaskCreateObject;
 import com.andriusk.project.service.TaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,7 +58,7 @@ public class TaskController {
     @PostMapping(value = "/{taskId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ApiOperation(value = "Edit a specific task", notes = "Edits a task's information.")
-    public void editTask(@PathVariable Long taskId, @RequestBody Task task) {
+    public void editTask(@PathVariable Long taskId, @RequestBody TaskCreateObject task) {
         taskService.editTask(taskId, task);
     }
 
