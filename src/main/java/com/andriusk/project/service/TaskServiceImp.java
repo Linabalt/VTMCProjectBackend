@@ -7,8 +7,6 @@ import com.andriusk.project.enums.TaskStatus;
 import com.andriusk.project.repository.ProjectRepository;
 import com.andriusk.project.repository.TaskRepository;
 import com.andriusk.project.response.TaskCreateObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +26,6 @@ public class TaskServiceImp implements TaskService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @Override
     public void createTask(Task task, Long projectId) {
         Project project = projectRepository.findById(projectId).get();
@@ -38,42 +34,42 @@ public class TaskServiceImp implements TaskService {
     }
 
     @Override
-    public void createTask(String payload, long projectId) {
-        try {
-            TaskCreateObject projectCreateObject = objectMapper.readValue(payload, TaskCreateObject.class);
+    public void createTask(Long projectId, TaskCreateObject task) {
 
-            LocalDateTime deadline = LocalDateTime.of(LocalDate.parse(projectCreateObject.getTaskDeadline()), LocalTime.now());
+        Task newTask = new Task();
+        newTask.setTaskName(task.getTaskName());
+        newTask.setTaskDescription(task.getTaskDescription());
+        newTask.setTaskStory(task.getTaskStory());
+        newTask.setTaskDeadline(LocalDateTime.of(LocalDate.parse(task.getTaskDeadline()), LocalTime.now()));
 
-            Priority priority;
-            if (projectCreateObject.getTaskPriority().equals("HIGH")) {
-                priority = Priority.HIGH;
-            } else if (projectCreateObject.getTaskPriority().equals("MEDIUM")) {
-                priority = Priority.MEDIUM;
-            } else {
-                priority = Priority.LOW;
-            }
-
-            TaskStatus status;
-            if (projectCreateObject.getTaskStatus().equals("NOT_STARTED")) {
-                status = TaskStatus.NOT_STARTED;
-            } else if (projectCreateObject.getTaskStatus().equals("IN_PROGRESS")) {
-                status = TaskStatus.IN_PROGRESS;
-            } else if (projectCreateObject.getTaskStatus().equals("COMPLETE")) {
-                status = TaskStatus.COMPLETE;
-            } else {
-                status = TaskStatus.CANCELED;
-            }
-
-            Task newTask = new Task(projectCreateObject.getTaskName(), projectCreateObject.getTaskDescription(), status, priority, deadline,
-                    projectCreateObject.getTaskStory());
-
-            createTask(newTask, projectId);
-
-
-        } catch (JsonProcessingException e) {
-            System.out.println(e);
-            System.out.println("Failed to save a task from received data.");
+        switch (task.getTaskStatus()) {
+            case "NOT_STARTED":
+                newTask.setTaskStatus(TaskStatus.NOT_STARTED);
+                break;
+            case "IN_PROGRESS":
+                newTask.setTaskStatus(TaskStatus.IN_PROGRESS);
+                break;
+            case "COMPLETE":
+                newTask.setTaskStatus(TaskStatus.COMPLETE);
+                break;
+            default:
+                newTask.setTaskStatus(TaskStatus.CANCELED);
+                break;
         }
+
+        switch (task.getTaskPriority()) {
+            case "LOW":
+                newTask.setTaskPriority(Priority.LOW);
+                break;
+            case "MEDIUM":
+                newTask.setTaskPriority(Priority.MEDIUM);
+                break;
+            default:
+                newTask.setTaskPriority(Priority.HIGH);
+                break;
+        }
+
+        createTask(newTask, projectId);
     }
 
     @Override

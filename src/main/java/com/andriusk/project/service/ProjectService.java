@@ -13,7 +13,7 @@ public interface ProjectService {
 
     void save(Project project);
 
-    void createProject(String payload);
+    void createProject(ProjectCreateObject project);
 
     void updateProject(ProjectCreateObject project, Long projectId);
 

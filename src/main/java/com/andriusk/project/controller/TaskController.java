@@ -37,8 +37,8 @@ public class TaskController {
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ApiOperation(value = "Create a task", notes = "Creates a new task for the specified project.")
-    public void createTask(@PathVariable Long projectId, @RequestBody String payload) {
-        taskService.createTask(payload, projectId);
+    public void createTask(@PathVariable Long projectId, @RequestBody TaskCreateObject task) {
+        taskService.createTask(projectId, task);
     }
 
     @GetMapping(value = "/{taskId}")
