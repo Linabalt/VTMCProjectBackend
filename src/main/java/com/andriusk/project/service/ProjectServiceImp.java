@@ -78,6 +78,7 @@ public class ProjectServiceImp implements ProjectService {
         return projectRepository.findAll().stream().filter(project -> pattern.matcher(project.getProjectName()).find()).collect(Collectors.toList());
     }
 
+    
     @Override
     public List<FullProjectInfo> retrieveFullInfo() {
         return projectRepository.findAll().stream().map(project -> {
